@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BabyChloe.Mobile.Views.Growth.GrowthChartPage"
+             Title="Growth Chart">
+
+    <Grid RowDefinitions="Auto,*" Padding="16">
+        <Label Grid.Row="0" Text="Growth Trends 📈" FontSize="24" FontAttributes="Bold" Margin="0,0,0,16" />
+        <!-- LiveCharts CartesianChart would go here in production -->
+        <Frame Grid.Row="1" CornerRadius="12" Padding="20">
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                <Label Text="📊" FontSize="64" HorizontalOptions="Center" />
+                <Label Text="Growth chart visualization" FontSize="16" HorizontalOptions="Center" />
+                <Label Text="Powered by LiveCharts2" FontSize="12" TextColor="Gray" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

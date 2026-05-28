@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:dashboard="clr-namespace:BabyChloe.Mobile.Views.Dashboard"
+       xmlns:activity="clr-namespace:BabyChloe.Mobile.Views.Activity"
+       xmlns:growth="clr-namespace:BabyChloe.Mobile.Views.Growth"
+       xmlns:settings="clr-namespace:BabyChloe.Mobile.Views.Settings"
+       x:Class="BabyChloe.Mobile.AppShell"
+       Title="Baby Chloe">
+
+    <TabBar>
+        <ShellContent Title="Home" Icon="home" ContentTemplate="{DataTemplate dashboard:DashboardPage}" />
+        <ShellContent Title="Activity" Icon="activity" ContentTemplate="{DataTemplate activity:ActivityFeedPage}" />
+        <ShellContent Title="Growth" Icon="growth" ContentTemplate="{DataTemplate growth:GrowthPage}" />
+        <ShellContent Title="Settings" Icon="settings" ContentTemplate="{DataTemplate settings:SettingsPage}" />
+    </TabBar>
+</Shell>

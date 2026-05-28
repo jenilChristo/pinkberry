@@ -1,0 +1,20 @@
+# .dockerignore
+.git/
+.vs/
+.vscode/
+.idea/
+node_modules/
+**/bin/
+**/obj/
+**/*.log
+.env*
+*.md
+docker-compose*.yml
+.dockerignore
+Dockerfile*
+coverage/
+TestResults/
+mobile/
+specs/
+.specify/
+.github/

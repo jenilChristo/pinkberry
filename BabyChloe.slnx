@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/api/" />
+  <Folder Name="/api/src/">
+    <Project Path="api/src/BabyChloe.Api/BabyChloe.Api.csproj" />
+    <Project Path="api/src/BabyChloe.Application/BabyChloe.Application.csproj" />
+    <Project Path="api/src/BabyChloe.Domain/BabyChloe.Domain.csproj" />
+    <Project Path="api/src/BabyChloe.Infrastructure/BabyChloe.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/api/tests/">
+    <Project Path="api/tests/BabyChloe.Api.IntegrationTests/BabyChloe.Api.IntegrationTests.csproj" />
+    <Project Path="api/tests/BabyChloe.Api.UnitTests/BabyChloe.Api.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/mobile/" />
+  <Folder Name="/mobile/tests/">
+    <Project Path="mobile/tests/BabyChloe.Mobile.UnitTests/BabyChloe.Mobile.UnitTests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BabyChloe.Mobile.Views.Dashboard.DashboardPage"
+             Title="Baby Chloe">
+
+    <Grid RowDefinitions="*,Auto" Padding="16">
+        <!-- Metric Cards -->
+        <VerticalStackLayout Grid.Row="0" Spacing="12">
+            <!-- Sleep Card -->
+            <Frame Padding="16" CornerRadius="12" BorderColor="Transparent"
+                   BackgroundColor="{AppThemeBinding Light=#F0F4FF, Dark=#1A1A2E}">
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="🌙 Sleep" FontSize="14" TextColor="Gray" />
+                        <Label Text="{Binding SleepSummary}" FontSize="16" FontAttributes="Bold" />
+                        <Label Text="{Binding SleepDuration}" FontSize="13" TextColor="Gray" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="💤" FontSize="32" VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+
+            <!-- Feeding Card -->
+            <Frame Padding="16" CornerRadius="12" BorderColor="Transparent"
+                   BackgroundColor="{AppThemeBinding Light=#FFF8F0, Dark=#1A1A0E}">
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="🍼 Feeding" FontSize="14" TextColor="Gray" />
+                        <Label Text="{Binding FeedingSummary}" FontSize="16" FontAttributes="Bold" />
+                        <Label Text="{Binding NextFeedingDue, StringFormat='Next: {0}'}" FontSize="13" TextColor="Gray" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="🍼" FontSize="32" VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+
+            <!-- Diaper Card -->
+            <Frame Padding="16" CornerRadius="12" BorderColor="Transparent"
+                   BackgroundColor="{AppThemeBinding Light=#F0FFF4, Dark=#0E1A12}">
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="🧷 Diapers" FontSize="14" TextColor="Gray" />
+                        <Label Text="{Binding DiaperCount, StringFormat='{0} today'}" FontSize="16" FontAttributes="Bold" />
+                        <Label Text="{Binding DiaperInsight}" FontSize="13" TextColor="Gray" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="🧷" FontSize="32" VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+
+        <!-- Quick Action FAB Panel -->
+        <HorizontalStackLayout Grid.Row="1" Spacing="16" HorizontalOptions="Center" Margin="0,12,0,8">
+            <Button Text="🌙" WidthRequest="56" HeightRequest="56" CornerRadius="28" FontSize="24"
+                    BackgroundColor="{AppThemeBinding Light=#6366F1, Dark=#818CF8}" />
+            <Button Text="🍼" WidthRequest="56" HeightRequest="56" CornerRadius="28" FontSize="24"
+                    BackgroundColor="{AppThemeBinding Light=#F59E0B, Dark=#FBBF24}" />
+            <Button Text="🧷" WidthRequest="56" HeightRequest="56" CornerRadius="28" FontSize="24"
+                    BackgroundColor="{AppThemeBinding Light=#10B981, Dark=#34D399}" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

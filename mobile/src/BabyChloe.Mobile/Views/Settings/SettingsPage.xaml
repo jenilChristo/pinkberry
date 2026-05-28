@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BabyChloe.Mobile.Views.Settings.SettingsPage"
+             Title="Settings">
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="16">
+            <Label Text="Settings" FontSize="24" FontAttributes="Bold" />
+
+            <Frame Padding="16" CornerRadius="8">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Theme" FontSize="16" FontAttributes="Bold" />
+                    <Picker Title="Select theme">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Light</x:String>
+                                <x:String>Dark</x:String>
+                                <x:String>Ultra Night</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="16" CornerRadius="8">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Sync Status" FontSize="16" FontAttributes="Bold" />
+                    <Label Text="All data synced ✓" TextColor="Green" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="16" CornerRadius="8">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="About" FontSize="16" FontAttributes="Bold" />
+                    <Label Text="Baby Chloe v1.0" />
+                    <Label Text="Made with love for new parents 💕" TextColor="Gray" />
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
