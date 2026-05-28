@@ -3,13 +3,13 @@ name: Deploy Baby Chloe Web App
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'app/web/**'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - main
+      - master
     paths:
       - 'app/web/**'
   workflow_dispatch:
