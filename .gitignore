@@ -1,0 +1,59 @@
+# .gitignore for Baby Chloe App
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+packages/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+
+# NuGet
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Environment
+.env
+.env.*
+appsettings.*.local.json
+
+# Test results
+TestResults/
+coverage/
+
+# MAUI
+*.ipa
+*.apk
+*.aab
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# User secrets
+secrets.json

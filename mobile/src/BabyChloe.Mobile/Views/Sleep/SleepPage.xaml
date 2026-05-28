@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BabyChloe.Mobile.ViewModels.Sleep"
+             x:Class="BabyChloe.Mobile.Views.Sleep.SleepPage"
+             Title="Sleep">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+        <!-- Timer Display -->
+        <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center" Spacing="8">
+            <Label Text="{Binding TimerDisplay}"
+                   FontSize="48" FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+            <Label Text="{Binding StatusMessage}"
+                   FontSize="16" TextColor="Gray"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Large tap target button -->
+        <Button Grid.Row="1"
+                Text="{Binding IsSleeping, Converter={StaticResource BoolToSleepText}}"
+                Command="{Binding ToggleSleepCommand}"
+                WidthRequest="200" HeightRequest="200"
+                CornerRadius="100"
+                FontSize="24"
+                HorizontalOptions="Center" VerticalOptions="Center" />
+
+        <!-- Options -->
+        <VerticalStackLayout Grid.Row="2" Spacing="12">
+            <Picker Title="Quality" SelectedItem="{Binding SelectedQuality}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Peaceful</x:String>
+                        <x:String>Restless</x:String>
+                        <x:String>Fussy</x:String>
+                        <x:String>Crying</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Picker Title="Location" SelectedItem="{Binding SelectedLocation}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Crib</x:String>
+                        <x:String>Bassinet</x:String>
+                        <x:String>CarSeat</x:String>
+                        <x:String>Stroller</x:String>
+                        <x:String>ParentArms</x:String>
+                        <x:String>ParentBed</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

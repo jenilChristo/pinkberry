@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BabyChloe.Mobile.ViewModels.Feeding"
+             x:Class="BabyChloe.Mobile.Views.Feeding.FeedingPage"
+             Title="Feeding">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20" RowSpacing="16">
+        <!-- Next feeding countdown -->
+        <Frame Grid.Row="0" BackgroundColor="{AppThemeBinding Light=WhiteSmoke, Dark=#2D2D2D}" Padding="12" CornerRadius="8">
+            <Label Text="{Binding NextFeedingDue}" FontSize="16" HorizontalOptions="Center" />
+        </Frame>
+
+        <!-- Timer -->
+        <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" Spacing="4">
+            <Label Text="{Binding TimerDisplay}" FontSize="36" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Label Text="{Binding StatusMessage}" FontSize="14" TextColor="Gray" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Type and side selector -->
+        <VerticalStackLayout Grid.Row="2" Spacing="12" VerticalOptions="Center">
+            <Picker Title="Type" SelectedItem="{Binding SelectedType}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Breastfeeding</x:String>
+                        <x:String>Bottle</x:String>
+                        <x:String>Formula</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Picker Title="Side" SelectedItem="{Binding SelectedSide}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Left</x:String>
+                        <x:String>Right</x:String>
+                        <x:String>Both</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Entry Placeholder="Amount (ml)" Keyboard="Numeric" />
+        </VerticalStackLayout>
+
+        <!-- Start/Stop button -->
+        <Button Grid.Row="3"
+                Text="{Binding IsFeeding, Converter={StaticResource BoolToFeedText}}"
+                Command="{Binding ToggleFeedingCommand}"
+                HeightRequest="60" FontSize="20" CornerRadius="30" />
+    </Grid>
+</ContentPage>
