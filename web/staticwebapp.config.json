@@ -1,0 +1,46 @@
+# Baby Chloe - Azure Static Web App Configuration
+
+name: babychloe-web
+# Azure Static Web App build configuration
+app_location: "app/web"
+output_location: "dist"
+api_location: ""
+
+# Routing rules
+routes:
+  - route: "/api/*"
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
+    allowedRoles: ["authenticated"]
+  
+  - route: "/*"
+    serve: "/index.html"
+    statusCode: 200
+
+# Response headers
+globalHeaders:
+  X-Content-Type-Options: "nosniff"
+  X-Frame-Options: "DENY"
+  X-XSS-Protection: "1; mode=block"
+  Referrer-Policy: "strict-origin-when-cross-origin"
+  Permissions-Policy: "microphone=(self)"
+
+# MIME types
+mimeTypes:
+  .json: "application/json"
+  .js: "text/javascript"
+  .css: "text/css"
+
+# Platform configuration
+platform:
+  apiRuntime: "node:18"
+
+# Navigation fallback
+navigationFallback:
+  rewrite: "/index.html"
+  exclude:
+    - "*.{css,scss,sass}"
+    - "*.{png,jpg,jpeg,gif,bmp}"
+    - "*.{svg,ico}"
+    - "*.{js,jsx}"
+    - "*.{json}"
+    - "/api/*"
