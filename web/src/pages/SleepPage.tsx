@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {
   makeStyles,
   shorthands,
-  tokens,
   Card,
   Text,
   Title2,
@@ -19,7 +18,7 @@ import {
   Select,
   Textarea,
 } from '@fluentui/react-components';
-import { Add24Regular, Delete24Regular, Edit24Regular } from '@fluentui/react-icons';
+import { Add24Regular, Delete24Regular } from '@fluentui/react-icons';
 import { useBabyStore, useUIStore, useAuthStore } from '@/store';
 import { sleepService } from '@/services/api';
 import type { SleepRecord } from '@/types';

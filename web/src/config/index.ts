@@ -1,7 +1,7 @@
 export const config = {
-  apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:5000',
+  apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:5184',
   apiTimeout: parseInt(import.meta.env.VITE_API_TIMEOUT || '30000', 10),
-  signalRHubUrl: import.meta.env.VITE_SIGNALR_HUB_URL || 'http://localhost:5000/hubs/sync',
+  signalRHubUrl: import.meta.env.VITE_SIGNALR_HUB_URL || 'http://localhost:5184/hubs/sync',
   
   // Azure Configuration
   azure: {

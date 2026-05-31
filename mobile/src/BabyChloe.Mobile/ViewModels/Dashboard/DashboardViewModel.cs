@@ -64,9 +64,9 @@ public partial class DashboardViewModel : ObservableObject
             var completedSleep = todaySleep.Where(s => s.EndTime != null).ToList();
             if (completedSleep.Any())
             {
-                var total = completedSleep.Aggregate(TimeSpan.Zero, (sum, s) => sum + (s.EndTime!.Value - s.StartTime));
+                var totalSleepTime = completedSleep.Aggregate(TimeSpan.Zero, (sum, s) => sum + (s.EndTime!.Value - s.StartTime));
                 SleepSummary = $"{completedSleep.Count} naps today";
-                SleepDuration = $"{total:h\\:mm} total";
+                SleepDuration = $"{totalSleepTime:h\\:mm} total";
             }
         }
 
@@ -82,8 +82,8 @@ public partial class DashboardViewModel : ObservableObject
             : "No feedings today";
 
         // Diapers
-        var (total, wet, soiled, health, insight) = await _diaperStorage.GetTodayStatisticsAsync(_currentBabyId);
-        DiaperCount = total;
+        var (totalDiapers, wet, soiled, health, insight) = await _diaperStorage.GetTodayStatisticsAsync(_currentBabyId);
+        DiaperCount = totalDiapers;
         DiaperHealthStatus = health;
         DiaperInsight = insight;
     }

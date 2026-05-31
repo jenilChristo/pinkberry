@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
 import {
   makeStyles,
   shorthands,
@@ -6,6 +7,8 @@ import {
 } from '@fluentui/react-components';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
+import { useAuthStore, useBabyStore } from '@/store';
+import { babyService } from '@/services/api';
 
 const useStyles = makeStyles({
   container: {
@@ -43,6 +46,25 @@ interface MainLayoutProps {
 
 export function MainLayout({ toggleTheme, isDark }: MainLayoutProps) {
   const styles = useStyles();
+  const user = useAuthStore((state) => state.user);
+  const { currentBaby, setBabies, setCurrentBaby } = useBabyStore();
+
+  useEffect(() => {
+    // Fetch babies when user is authenticated and no baby is selected
+    if (user && !currentBaby) {
+      babyService.getBabies()
+        .then((data) => {
+          setBabies(data);
+          // Auto-select first baby if available
+          if (data.length > 0 && data[0]) {
+            setCurrentBaby(data[0]);
+          }
+        })
+        .catch(() => {
+          // Failed to fetch babies
+        });
+    }
+  }, [user, currentBaby, setBabies, setCurrentBaby]);
 
   return (
     <div className={styles.container}>

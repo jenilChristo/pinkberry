@@ -9,7 +9,6 @@ public partial class FeedingViewModel : ObservableObject
 {
     private readonly FeedingStorageService _feedingStorage;
     private System.Timers.Timer? _timer;
-    private System.Timers.Timer? _countdownTimer;
 
     [ObservableProperty] private bool _isFeeding;
     [ObservableProperty] private string _timerDisplay = "00:00";

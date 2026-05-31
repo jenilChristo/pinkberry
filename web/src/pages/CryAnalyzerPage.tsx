@@ -9,7 +9,7 @@ import {
   Button,
   ProgressBar,
 } from '@fluentui/react-components';
-import { Mic24Regular, Stop24Regular, Delete24Regular } from '@fluentui/react-icons';
+import { Mic24Regular, Stop24Regular } from '@fluentui/react-icons';
 import { useBabyStore, useUIStore, useAuthStore } from '@/store';
 import { cryAnalysisService } from '@/services/api';
 import type { CryAnalysisResult, CryAnalysis } from '@/types';
@@ -213,7 +213,7 @@ export function CryAnalyzerPage() {
       reader.readAsDataURL(audioBlob);
       reader.onloadend = async () => {
         const base64Audio = reader.result as string;
-        const base64Data = base64Audio.split(',')[1];
+        const base64Data = base64Audio.split(',')[1] || '';
 
         const analysisResult = await cryAnalysisService.analyzeCry(
           currentBaby.id,

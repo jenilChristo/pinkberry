@@ -1,0 +1,8 @@
+<step title="Incoming Request" date="2026-05-28T15:06:31.450" instance="6bc239" url="/api/deployments/latest" method="GET" type="request" pid="833,1,22" Accept="*/*" Host="babychloe-cucjg6fuhtb3faa0.scm.azurewebsites.net" User-Agent="AZURECLI/2.80.0 (MSI)" Accept-Encoding="gzip, deflate" Authorization="Bea..." x-ms-client-request-id="b96aacb6-5aa6-11f1-9316-c4cb7690d5a7" X-ARR-LOG-ID="b96aacb6-5aa6-11f1-9316-c4cb7690d5a7" CLIENT-IP="122.167.103.80:6913" X-SITE-DEPLOYMENT-ID="babychloe-cucjg6fuhtb3faa0" WAS-DEFAULT-HOSTNAME="babychloe-cucjg6fuhtb3faa0.scm.azurewebsites.net" X-Forwarded-Proto="https" X-AppService-Proto="https" X-Forwarded-TlsVersion="1.3" X-WAWS-Unencoded-URL="/api/deployments/latest" X-Client-IP="122.167.103.80" X-Client-Port="6913" >
+  <step title="DeploymentService.GetResult" date="2026-05-28T15:06:31.540" >
+    <step title="DeploymentService.GetLatestDeployment" date="2026-05-28T15:06:31.549" >
+      <step title="DeploymentManager.GetResults" date="2026-05-28T15:06:31.599" /><!-- duration: 1009ms -->
+    </step><!-- duration: 1107ms -->
+  </step><!-- duration: 1137ms -->
+  <step title="Outgoing response" date="2026-05-28T15:06:32.706" type="response" statusCode="202" statusText="Accepted" /><!-- duration: 20ms -->
+</step><!-- duration: 1285ms -->

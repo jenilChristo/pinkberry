@@ -21,100 +21,134 @@ public class BabyChloeDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // FamilyMembership composite key
-        modelBuilder.Entity<FamilyMembership>()
-            .HasKey(fm => new { fm.FamilyId, fm.CaregiverId });
+        // Cosmos DB: Configure containers and partition keys
+        modelBuilder.Entity<Family>(entity =>
+        {
+            entity.ToContainer("Families");
+            entity.HasPartitionKey(f => f.Id);
+            entity.HasNoDiscriminator();
+            entity.Property(f => f.Name).HasMaxLength(100);
+            entity.Property(f => f.InviteCode).HasMaxLength(8);
+            
+            // Navigation to babies
+            entity.HasMany(f => f.Babies)
+                .WithOne(b => b.Family)
+                .HasForeignKey(b => b.FamilyId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
+            // Navigation to memberships
+            entity.HasMany(f => f.Members)
+                .WithOne(fm => fm.Family)
+                .HasForeignKey(fm => fm.FamilyId)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
 
-        modelBuilder.Entity<FamilyMembership>()
-            .HasOne(fm => fm.Family)
-            .WithMany(f => f.Members)
-            .HasForeignKey(fm => fm.FamilyId);
+        modelBuilder.Entity<Baby>(entity =>
+        {
+            entity.ToContainer("Babies");
+            entity.HasPartitionKey(b => b.FamilyId);
+            entity.HasNoDiscriminator();
+            entity.Property(b => b.Name).HasMaxLength(100);
+        });
 
-        modelBuilder.Entity<FamilyMembership>()
-            .HasOne(fm => fm.Caregiver)
-            .WithMany(c => c.Memberships)
-            .HasForeignKey(fm => fm.CaregiverId);
+        modelBuilder.Entity<Caregiver>(entity =>
+        {
+            entity.ToContainer("Caregivers");
+            entity.HasPartitionKey(c => c.Id);
+            entity.HasNoDiscriminator();
+            entity.Property(c => c.DisplayName).HasMaxLength(100);
+            entity.Property(c => c.Email).HasMaxLength(255);
+            
+            // Navigation to memberships
+            entity.HasMany(c => c.Memberships)
+                .WithOne(fm => fm.Caregiver)
+                .HasForeignKey(fm => fm.CaregiverId)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
 
-        // Family -> Babies
-        modelBuilder.Entity<Baby>()
-            .HasOne(b => b.Family)
-            .WithMany(f => f.Babies)
-            .HasForeignKey(b => b.FamilyId);
+        modelBuilder.Entity<SleepRecord>(entity =>
+        {
+            entity.ToContainer("SleepRecords");
+            entity.HasPartitionKey(s => s.BabyId);
+            entity.HasNoDiscriminator();
+            entity.Property(s => s.Notes).HasMaxLength(500);
+            
+            entity.HasOne(s => s.Baby)
+                .WithMany(b => b.SleepRecords)
+                .HasForeignKey(s => s.BabyId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
+            // Note: Recorder relationship crosses partitions, so we only store the ID
+            entity.Ignore(s => s.Recorder);
+        });
 
-        // Baby -> SleepRecords
-        modelBuilder.Entity<SleepRecord>()
-            .HasOne(s => s.Baby)
-            .WithMany(b => b.SleepRecords)
-            .HasForeignKey(s => s.BabyId);
+        modelBuilder.Entity<Feeding>(entity =>
+        {
+            entity.ToContainer("Feedings");
+            entity.HasPartitionKey(f => f.BabyId);
+            entity.HasNoDiscriminator();
+            entity.Property(f => f.Notes).HasMaxLength(500);
+            
+            entity.HasOne(f => f.Baby)
+                .WithMany(b => b.Feedings)
+                .HasForeignKey(f => f.BabyId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
+            // Note: Recorder relationship crosses partitions, so we only store the ID
+            entity.Ignore(f => f.Recorder);
+        });
 
-        modelBuilder.Entity<SleepRecord>()
-            .HasOne(s => s.Recorder)
-            .WithMany()
-            .HasForeignKey(s => s.RecordedBy)
-            .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<DiaperChange>(entity =>
+        {
+            entity.ToContainer("DiaperChanges");
+            entity.HasPartitionKey(d => d.BabyId);
+            entity.HasNoDiscriminator();
+            entity.Property(d => d.Notes).HasMaxLength(500);
+            
+            entity.HasOne(d => d.Baby)
+                .WithMany(b => b.DiaperChanges)
+                .HasForeignKey(d => d.BabyId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
+            // Note: Recorder relationship crosses partitions, so we only store the ID
+            entity.Ignore(d => d.Recorder);
+        });
 
-        // Baby -> Feedings
-        modelBuilder.Entity<Feeding>()
-            .HasOne(f => f.Baby)
-            .WithMany(b => b.Feedings)
-            .HasForeignKey(f => f.BabyId);
+        modelBuilder.Entity<GrowthMeasurement>(entity =>
+        {
+            entity.ToContainer("GrowthMeasurements");
+            entity.HasPartitionKey(g => g.BabyId);
+            entity.HasNoDiscriminator();
+            entity.Property(g => g.Notes).HasMaxLength(500);
+            
+            entity.HasOne(g => g.Baby)
+                .WithMany(b => b.GrowthMeasurements)
+                .HasForeignKey(g => g.BabyId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
+            // Note: Recorder relationship crosses partitions, so we only store the ID
+            entity.Ignore(g => g.Recorder);
+        });
 
-        modelBuilder.Entity<Feeding>()
-            .HasOne(f => f.Recorder)
-            .WithMany()
-            .HasForeignKey(f => f.RecordedBy)
-            .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<FeedingReminder>(entity =>
+        {
+            entity.ToContainer("FeedingReminders");
+            entity.HasPartitionKey(fr => fr.BabyId);
+            entity.HasNoDiscriminator();
+            
+            entity.HasOne(fr => fr.Baby)
+                .WithMany()
+                .HasForeignKey(fr => fr.BabyId);
+        });
 
-        // Baby -> DiaperChanges
-        modelBuilder.Entity<DiaperChange>()
-            .HasOne(d => d.Baby)
-            .WithMany(b => b.DiaperChanges)
-            .HasForeignKey(d => d.BabyId);
-
-        modelBuilder.Entity<DiaperChange>()
-            .HasOne(d => d.Recorder)
-            .WithMany()
-            .HasForeignKey(d => d.RecordedBy)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        // Baby -> GrowthMeasurements
-        modelBuilder.Entity<GrowthMeasurement>()
-            .HasOne(g => g.Baby)
-            .WithMany(b => b.GrowthMeasurements)
-            .HasForeignKey(g => g.BabyId);
-
-        modelBuilder.Entity<GrowthMeasurement>()
-            .HasOne(g => g.Recorder)
-            .WithMany()
-            .HasForeignKey(g => g.RecordedBy)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        // Baby -> FeedingReminder (one-to-one)
-        modelBuilder.Entity<FeedingReminder>()
-            .HasOne(fr => fr.Baby)
-            .WithMany()
-            .HasForeignKey(fr => fr.BabyId);
-
-        // Family invite code unique index
-        modelBuilder.Entity<Family>()
-            .HasIndex(f => f.InviteCode)
-            .IsUnique();
-
-        // Caregiver email unique index
-        modelBuilder.Entity<Caregiver>()
-            .HasIndex(c => c.Email)
-            .IsUnique()
-            .HasFilter("\"Email\" IS NOT NULL");
-
-        // String length constraints
-        modelBuilder.Entity<Baby>().Property(b => b.Name).HasMaxLength(100);
-        modelBuilder.Entity<Family>().Property(f => f.Name).HasMaxLength(100);
-        modelBuilder.Entity<Family>().Property(f => f.InviteCode).HasMaxLength(8);
-        modelBuilder.Entity<Caregiver>().Property(c => c.DisplayName).HasMaxLength(100);
-        modelBuilder.Entity<SleepRecord>().Property(s => s.Notes).HasMaxLength(500);
-        modelBuilder.Entity<Feeding>().Property(f => f.Notes).HasMaxLength(500);
-        modelBuilder.Entity<DiaperChange>().Property(d => d.Notes).HasMaxLength(500);
-        modelBuilder.Entity<GrowthMeasurement>().Property(g => g.Notes).HasMaxLength(500);
+        modelBuilder.Entity<FamilyMembership>(entity =>
+        {
+            entity.ToContainer("FamilyMemberships");
+            entity.HasPartitionKey(fm => fm.FamilyId);
+            entity.HasNoDiscriminator();
+            entity.HasKey(fm => new { fm.FamilyId, fm.CaregiverId });
+            entity.Property(fm => fm.Role).HasMaxLength(50);
+        });
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

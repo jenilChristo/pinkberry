@@ -1,0 +1,16 @@
+<step title="Incoming Request" date="2026-05-28T14:57:52.420" instance="6bc239" url="/api/publish?type=zip&amp;async=True" method="POST" type="request" pid="833,1,5" Accept="*/*" Host="babychloe-cucjg6fuhtb3faa0.scm.azurewebsites.net" User-Agent="AZURECLI/2.80.0 (MSI)" Accept-Encoding="gzip, deflate" Authorization="Bea..." Cache-Control="no-cache" Content-Type="application/octet-stream" Content-Length="11064378" x-ms-client-request-id="6dbc606a-5aa5-11f1-b4f1-c4cb7690d5a7" x-ms-artifact-checksum="dc9f98914d5704da245f4b75d9ab89e0edcabb84b2a59ea0c105ef9711278333" X-ARR-LOG-ID="6dbc606a-5aa5-11f1-b4f1-c4cb7690d5a7" CLIENT-IP="122.167.103.80:5748" X-SITE-DEPLOYMENT-ID="babychloe-cucjg6fuhtb3faa0" WAS-DEFAULT-HOSTNAME="babychloe-cucjg6fuhtb3faa0.scm.azurewebsites.net" X-Forwarded-Proto="https" X-AppService-Proto="https" X-Forwarded-TlsVersion="1.3" X-WAWS-Unencoded-URL="/api/publish?type=zip&amp;async=True" X-Client-IP="122.167.103.80" X-Client-Port="5748" >
+  <step title="OneDeploy" date="2026-05-28T14:57:53.223" >
+    <step title="None repository commit" date="2026-05-28T14:57:53.235" >
+      <step title="Commit id: 3148f2ff-b30c-4f04-9ae6-4bf2b50abc82" date="2026-05-28T14:57:53.237" Message="N/A" AuthorName="N/A" AuthorEmail="N/A" /><!-- duration: 1ms -->
+    </step><!-- duration: 9ms -->
+    <step title="Starting PushDeployAsync" date="2026-05-28T14:57:53.252" /><!-- duration: 2ms -->
+    <step title="Writing artifact to /tmp/zipdeploy/4b9ebdfd-7873-46fb-8e79-7702c03ea378.zip" date="2026-05-28T14:57:53.283" >
+      <step title="Writing multipart request body to /tmp/zipdeploy/4b9ebdfd-7873-46fb-8e79-7702c03ea378.zip" date="2026-05-28T14:57:53.292" /><!-- duration: 2ms -->
+    </step><!-- duration: 1622ms -->
+    <step title="Start deployment in the background" date="2026-05-28T14:57:54.962" >
+      <step title="Acquiring Deployment Lock" date="2026-05-28T14:57:55.032" /><!-- duration: 11ms -->
+      <step title="Acquired Deployment Lock" date="2026-05-28T14:57:55.390" /><!-- duration: 31ms -->
+    </step><!-- duration: 976ms -->
+  </step><!-- duration: 2814ms -->
+  <step title="Outgoing response" date="2026-05-28T14:57:56.149" type="response" statusCode="202" statusText="Accepted" /><!-- duration: 41ms -->
+</step><!-- duration: 3789ms -->

@@ -7,7 +7,6 @@ import {
   Text,
   Title2,
   Button,
-  Spinner,
 } from '@fluentui/react-components';
 import {
   Sleep24Regular,
@@ -121,16 +120,12 @@ export function DashboardPage() {
     }
   };
 
-  const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-
-    if (diffMins < 60) return `${diffMins}m ago`;
-    const diffHours = Math.floor(diffMins / 60);
-    if (diffHours < 24) return `${diffHours}h ago`;
-    return date.toLocaleDateString();
+  const parseTimeSpanToHours = (timeSpan: string): number => {
+    // TimeSpan format: "HH:MM:SS"
+    const parts = timeSpan.split(':');
+    const hours = parseInt(parts[0] || '0', 10);
+    const minutes = parseInt(parts[1] || '0', 10);
+    return hours + (minutes / 60);
   };
 
   if (loading) return <Loading message="Loading dashboard..." />;
@@ -181,7 +176,9 @@ export function DashboardPage() {
               <div className={styles.statHeader}>
                 <Sleep24Regular className={styles.statIcon} />
               </div>
-              <div className={styles.statValue}>{summary.todayStats.totalSleepHours.toFixed(1)}h</div>
+              <div className={styles.statValue}>
+                {parseTimeSpanToHours(summary.sleep.totalSleepToday).toFixed(1)}h
+              </div>
               <Text className={styles.statLabel}>Sleep Today</Text>
             </Card>
 
@@ -189,7 +186,7 @@ export function DashboardPage() {
               <div className={styles.statHeader}>
                 <Food24Regular className={styles.statIcon} />
               </div>
-              <div className={styles.statValue}>{summary.todayStats.totalFeedings}</div>
+              <div className={styles.statValue}>{summary.feeding.totalFeedingsToday}</div>
               <Text className={styles.statLabel}>Feedings Today</Text>
             </Card>
 
@@ -197,23 +194,9 @@ export function DashboardPage() {
               <div className={styles.statHeader}>
                 <ClipboardTask24Regular className={styles.statIcon} />
               </div>
-              <div className={styles.statValue}>{summary.todayStats.totalDiaperChanges}</div>
+              <div className={styles.statValue}>{summary.diapers.totalToday}</div>
               <Text className={styles.statLabel}>Diapers Today</Text>
             </Card>
-          </div>
-
-          <div className={styles.recentSection}>
-            <Text className={styles.sectionTitle}>Recent Activity</Text>
-            <div className={styles.activityList}>
-              {summary.recentActivities.slice(0, 5).map((activity) => (
-                <Card key={activity.id} className={styles.activityCard}>
-                  <Text weight="semibold">{activity.description}</Text>
-                  <Text className={styles.activityTime}>
-                    {formatTime(activity.timestamp)} • {activity.recordedByName}
-                  </Text>
-                </Card>
-              ))}
-            </div>
           </div>
         </>
       )}

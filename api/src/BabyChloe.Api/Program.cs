@@ -2,15 +2,19 @@ using BabyChloe.Api.Middleware;
 using BabyChloe.Application.Behaviors;
 using BabyChloe.Infrastructure.Persistence;
 using FluentValidation;
-using HealthChecks.NpgSql;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Database
+// Cosmos DB Database
+var cosmosConnectionString = builder.Configuration.GetConnectionString("CosmosDb") 
+    ?? throw new InvalidOperationException("CosmosDb connection string not found");
+var databaseName = builder.Configuration["CosmosDb:DatabaseName"] 
+    ?? throw new InvalidOperationException("CosmosDb DatabaseName not found");
+
 builder.Services.AddDbContext<BabyChloeDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseCosmos(cosmosConnectionString, databaseName));
 
 // Redis cache
 builder.Services.AddStackExchangeRedisCache(options =>
@@ -36,7 +40,6 @@ builder.Services.AddSignalR();
 
 // Health checks
 builder.Services.AddHealthChecks()
-    .AddNpgSql(builder.Configuration.GetConnectionString("DefaultConnection")!)
     .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
 
 var app = builder.Build();

@@ -136,15 +136,32 @@ export interface CryPatterns {
 
 // Dashboard Types
 export interface DashboardSummary {
-  lastFeeding?: Feeding;
-  lastSleep?: SleepRecord;
-  lastDiaperChange?: DiaperChange;
-  todayStats: {
-    totalFeedings: number;
-    totalSleepHours: number;
-    totalDiaperChanges: number;
+  sleep: {
+    totalSleepToday: string; // TimeSpan string like "01:47:00"
+    sessionCount: number;
+    averageSessionDuration: string;
+    insightMessage: string;
   };
-  recentActivities: Activity[];
+  feeding: {
+    totalFeedingsToday: number;
+    totalFeedingTime: string; // TimeSpan string
+    averageDuration: string;
+    lastSide: string;
+    insightMessage: string;
+  };
+  diapers: {
+    totalToday: number;
+    wetCount: number;
+    soiledCount: number;
+    bothCount: number;
+    healthStatus: string;
+    insightMessage: string;
+  };
+  nextFeeding: {
+    nextDueAt: string;
+    averageIntervalMinutes: number;
+    timeUntilDue: string;
+  };
 }
 
 export interface Activity {

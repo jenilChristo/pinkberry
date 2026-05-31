@@ -197,7 +197,7 @@ export function DiaperPage() {
                   <Checkbox
                     label="Has Rash"
                     checked={formData.hasRash}
-                    onChange={(e, data) => setFormData({ ...formData, hasRash: data.checked === true })}
+                    onChange={(_, data) => setFormData({ ...formData, hasRash: data.checked === true })}
                   />
                   {formData.hasRash && (
                     <Field label="Rash Severity">

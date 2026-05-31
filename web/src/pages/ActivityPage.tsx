@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
   makeStyles,
-  shorthands,
-  tokens,
   Card,
   Text,
   Title2,

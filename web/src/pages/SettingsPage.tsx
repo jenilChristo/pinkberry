@@ -117,12 +117,11 @@ export function SettingsPage() {
     try {
       const data = await babyService.getBabies();
       setBabies(data);
-      if (!currentBaby && data.length > 0) {
+      if (!currentBaby && data.length > 0 && data[0]) {
         setCurrentBaby(data[0]);
       }
     } catch (error) {
       showToast('Failed to load babies', 'error');
-      console.error('Load babies error:', error);
     }
   };
 
